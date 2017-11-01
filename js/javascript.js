@@ -3,16 +3,19 @@
         .await(makeGraphs);
     function makeGraphs(error, countryData) {
         var ndx = crossfilter(countryData);
-        // var parseDate = d3.time.format("%m/%d/%Y").parse;
-        // countryData.forEach(function(d){
-        //     d.iyear = parseDate(d.iyear);
-        // });
-        var yearDim = ndx.dimension(function(d){
-            return d.iyear;
-        });
         
-        var minDate = yearDim.bottom(1)[0].iyear;
-        var maxDate = yearDim.top(1)[0].iyear;
+        var parseDate = d3.time.format("%m/%d/%Y").parse;
+        countryData.forEach(function(d){
+            d.iyear = parseInt(d.iyear);
+        });
+        // var yearDim = ndx.dimension(function(d){
+        //     return d.iyear;
+        // });
+        
+        yearDim = ndx.dimension(dc.pluck('iyear'))
+        
+        // var minDate = yearDim.bottom(1)[0].iyear;
+        // var maxDate = yearDim.top(1)[0].iyear;
         
        
 // ---------------------------------------------------------------------------------------------------------------------------        
@@ -77,7 +80,7 @@
             .width(990)
             .height(200)
             .dimension(yearDim)
-            .x(d3.time.scale().domain([minDate, maxDate]))
+            .x(d3.scale.linear().domain([1970, 1976]))
             .yAxisLabel("The Y Axis")
             .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
             .renderHorizontalGridLines(true)
