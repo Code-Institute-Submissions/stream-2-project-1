@@ -8,14 +8,15 @@
         countryData.forEach(function(d){
             d.iyear = parseInt(d.iyear);
         });
+        
         // var yearDim = ndx.dimension(function(d){
         //     return d.iyear;
         // });
         
         yearDim = ndx.dimension(dc.pluck('iyear'))
         
-        // var minDate = yearDim.bottom(1)[0].iyear;
-        // var maxDate = yearDim.top(1)[0].iyear;
+        var minDate = yearDim.bottom(1)[0].iyear;
+        var maxDate = yearDim.top(1)[0].iyear;
         
        
 // ---------------------------------------------------------------------------------------------------------------------------        
@@ -32,6 +33,64 @@
         
         
 // ---------------------------------------------------------------------------------------------------------------------------                
+ 
+        //Average killed by way Killed
+        
+        var weapon_dim = ndx.dimension(function (d){
+            return attackType(d['weaptype1_txt']);
+        })
+    
+        function attackType (d){
+            if (d == 'Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)') {
+                d = 'Vehicle'; }
+            return d;
+        }
+        
+         var people_killed_group = weapon_dim.group().reduce(
+            function (p, v) {
+                ++p.count;
+                p.total += v.nkill;
+                p.average = p.total / p.count;
+                return p;
+            },
+            function (p, v) {
+                --p.count;
+                if(p.count == 0) {
+                    p.total = 0;
+                    p.average = 0;
+                } else {
+                    p.total -= v.nkill;
+                    p.average = p.total / p.count;
+                };
+                return p;
+            },
+            function () {
+                return {count: 0, total: 0, average: 0};
+            }
+        );
+        
+        
+        var weapon_chart = dc.barChart("#weapons-display");
+
+        weapon_chart
+            .width(500)
+            .height(300)
+            .margins({top: 10, right: 50, bottom: 150, left: 50})
+            .dimension(weapon_dim)
+            .group(people_killed_group)
+            .valueAccessor(function (p) {
+                return p.value.average;
+            })
+            .transitionDuration(500)
+            .x(d3.scale.ordinal())
+            .xUnits(dc.units.ordinal)
+            .elasticY(true)
+            .xAxisLabel("Attack Type")
+            .yAxis().ticks(4);
+ 
+ 
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------        
+
         
         // Lethal - non lethal PieChart    
         
@@ -94,54 +153,6 @@
             ])
             .brushOn(false)
             .render();
-
-        
-// --------------------------------------------------------------------------------------------------------------------------------------------------------------------        
-        //Average killed by way Killed
-        
-        var weapon_dim = ndx.dimension(dc.pluck('weaptype1_txt'))
-    
-         var people_killed_group = weapon_dim.group().reduce(
-            function (p, v) {
-                ++p.count;
-                p.total += v.nkill;
-                p.average = p.total / p.count;
-                return p;
-            },
-            function (p, v) {
-                --p.count;
-                if(p.count == 0) {
-                    p.total = 0;
-                    p.average = 0;
-                } else {
-                    p.total -= v.nkill;
-                    p.average = p.total / p.count;
-                };
-                return p;
-            },
-            function () {
-                return {count: 0, total: 0, average: 0};
-            }
-        );
-        
-        
-        var weapon_chart = dc.barChart("#weapons-display");
-
-        weapon_chart
-            .width(500)
-            .height(300)
-            .margins({top: 10, right: 50, bottom: 30, left: 50})
-            .dimension(weapon_dim)
-            .group(people_killed_group)
-            .valueAccessor(function (p) {
-                return p.value.average;
-            })
-            .transitionDuration(500)
-            .x(d3.scale.ordinal())
-            .xUnits(dc.units.ordinal)
-            .elasticY(true)
-            .xAxisLabel("Attack Type")
-            .yAxis().ticks(4);
 
     
         dc.renderAll();
