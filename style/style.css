@@ -1,4 +1,14 @@
+div {
+  clear: left;
+}
+
 #weapons-display .x.axis text {
   text-anchor: end !important;
   transform: rotate(-45deg);
 }
+
+#target-chart .x.axis text {
+  text-anchor: end !important;
+  transform: rotate(-45deg);
+}
+

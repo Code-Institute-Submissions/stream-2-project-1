@@ -1,7 +1,9 @@
  queue()
         .defer(d3.csv, "data/gtd.csv")
+        .defer(d3.json, "data/countries.geo.json")
         .await(makeGraphs);
-    function makeGraphs(error, countryData) {
+    function makeGraphs(error, countryData, geoData) {
+
         var ndx = crossfilter(countryData);
         
         var parseDate = d3.time.format("%m/%d/%Y").parse;
@@ -21,7 +23,7 @@
        
 // ---------------------------------------------------------------------------------------------------------------------------        
 
-        // Number Display
+        // Number Display Killed people
         var allKilled = ndx.groupAll().reduceSum(dc.pluck('nkill'))
         var numberKilled = dc.numberDisplay("#number-display");
             numberKilled
@@ -30,9 +32,24 @@
                       return d;
                   })
                 .group(allKilled);
+                
         
         
-// ---------------------------------------------------------------------------------------------------------------------------                
+
+// ---------------------------------------------------------------------------------------------------------------------------        
+
+        // Number Display Wounded people
+        var allWounded = ndx.groupAll().reduceSum(dc.pluck('nwound'))
+        var numberWounded = dc.numberDisplay("#wounded-display");
+            numberWounded
+                .formatNumber(d3.format("nwound"))
+                .valueAccessor(function (d) {
+                      return d;
+                  })
+                .group(allWounded);
+        
+// ---------------------------------------------------------------------------------------------------------------------------   
+
  
         //Average killed by way Killed
         
@@ -48,18 +65,18 @@
         
          var people_killed_group = weapon_dim.group().reduce(
             function (p, v) {
-                ++p.count;
-                p.total += v.nkill;
+                p.count++;
+                p.total += +v.nkill;
                 p.average = p.total / p.count;
                 return p;
             },
             function (p, v) {
-                --p.count;
+                p.count--;
                 if(p.count == 0) {
                     p.total = 0;
                     p.average = 0;
                 } else {
-                    p.total -= v.nkill;
+                    p.total -= +v.nkill;
                     p.average = p.total / p.count;
                 };
                 return p;
@@ -69,13 +86,12 @@
             }
         );
         
-        
         var weapon_chart = dc.barChart("#weapons-display");
 
         weapon_chart
             .width(500)
             .height(300)
-            .margins({top: 10, right: 50, bottom: 150, left: 50})
+            .margins({top: 10, right: 50, bottom: 150, left: 65})
             .dimension(weapon_dim)
             .group(people_killed_group)
             .valueAccessor(function (p) {
@@ -109,20 +125,37 @@
             .group(attack_type);
         
 // ---------------------------------------------------------------------------------------------------------------------------        
-        // attackers number killed    
+        // Group and number killed    
         
-        var dim = ndx.dimension(dc.pluck('gname'));
+        var group_dim = ndx.dimension(dc.pluck('gname'));
 
-        var group = dim.group().reduceSum(dc.pluck('nkill'));
+        var group_group = group_dim.group().reduceSum(dc.pluck('nkill'));
 
-        var chart = dc.rowChart("#third-chart");
+        var group_chart = dc.rowChart("#third-chart");
 
-        chart
+        group_chart
             .width(600)
             .height(330)
-            .dimension(dim)
+            .dimension(group_dim)
             .cap(4)
-            .group(group)
+            .group(group_group)
+            .xAxis().ticks(4);
+
+// ---------------------------------------------------------------------------------------------------------------------------        
+        // Target and number killed    
+        
+        var target_dim = ndx.dimension(dc.pluck('targtype1_txt'));
+
+        var target_group = target_dim.group().reduceSum(dc.pluck('nkill'));
+
+        var target_chart = dc.rowChart("#target-chart");
+
+        target_chart
+            .width(600)
+            .height(330)
+            .dimension(target_dim)
+            .cap(4)
+            .group(target_group)
             .xAxis().ticks(4);
 
 
@@ -132,7 +165,6 @@
         var ammountAttacks = yearDim.group()
         var ammountKilled = yearDim.group().reduceSum(dc.pluck('nkill'))
 
-        
         
         var compositeChart = dc.compositeChart('#composite-chart');
         compositeChart
@@ -153,7 +185,41 @@
             ])
             .brushOn(false)
             .render();
+            
+// ---------------------------------------------------------------------------------------------------------------------------        
+        // World Map  
+        
+        
+        var countryDim = ndx.dimension(dc.pluck('country_txt'));
+        
+        var country_group = countryDim.group();
+        
+        var worldMap = dc.geoChoroplethChart('#world-map-chart');
+        
+        var projection = d3.geo.mercator()
+            .center([0, 5 ])
+            .scale(80)
+            .rotate([-50,0]);
 
+        worldMap
+            .width(1000)
+            .height(500)
+            .dimension(countryDim)
+            .group(country_group)
+            .colors(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#7C151D"])
+            .colorDomain([0, 1])
+            .overlayGeoJson(geoData["features"], "name", function (d) {
+                return d.properties.name;
+            })
+            .projection(projection)
+            .title(function(p){
+                return "Country: " + p["Key"]
+            })
+        
+        
+        
+        
+// ---------------------------------------------------------------------------------------------------------------------------        
     
         dc.renderAll();
     }
