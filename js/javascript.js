@@ -198,12 +198,12 @@
         
         var projection = d3.geo.mercator()
             .center([0, 5 ])
-            .scale(80)
+            .scale(100)
             .rotate([-50,0]);
 
         worldMap
             .width(1000)
-            .height(500)
+            .height(420)
             .dimension(countryDim)
             .group(country_group)
             .colors(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#7C151D"])
