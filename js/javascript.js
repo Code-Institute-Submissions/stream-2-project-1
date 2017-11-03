@@ -89,9 +89,9 @@
         var weapon_chart = dc.barChart("#weapons-display");
 
         weapon_chart
-            .width(500)
+            .width(350)
             .height(300)
-            .margins({top: 10, right: 50, bottom: 150, left: 65})
+            .margins({top: 10, right: 20, bottom: 150, left: 40})
             .dimension(weapon_dim)
             .group(people_killed_group)
             .valueAccessor(function (p) {
@@ -101,7 +101,7 @@
             .x(d3.scale.ordinal())
             .xUnits(dc.units.ordinal)
             .elasticY(true)
-            .xAxisLabel("Attack Type")
+            .xAxisLabel("")
             .yAxis().ticks(4);
  
  
@@ -118,8 +118,8 @@
         });
         var attack_type = attack_type_dim.group();
         dc.pieChart('#second-chart')
-            .height(330)
-            .radius(2000)
+            .height(250)
+            .radius(500)
             .transitionDuration(1500)
             .dimension(attack_type_dim)
             .group(attack_type);
@@ -134,8 +134,8 @@
         var group_chart = dc.rowChart("#third-chart");
 
         group_chart
-            .width(600)
-            .height(330)
+            .width(350)
+            .height(300)
             .dimension(group_dim)
             .cap(4)
             .group(group_group)
@@ -151,8 +151,8 @@
         var target_chart = dc.rowChart("#target-chart");
 
         target_chart
-            .width(600)
-            .height(330)
+            .width(350)
+            .height(300)
             .dimension(target_dim)
             .cap(4)
             .group(target_group)
@@ -168,8 +168,8 @@
         
         var compositeChart = dc.compositeChart('#composite-chart');
         compositeChart
-            .width(990)
-            .height(200)
+            .width(800)
+            .height(250)
             .dimension(yearDim)
             .x(d3.scale.linear().domain([1970, 1976]))
             .yAxisLabel("The Y Axis")
@@ -197,12 +197,12 @@
         var worldMap = dc.geoChoroplethChart('#world-map-chart');
         
         var projection = d3.geo.mercator()
-            .center([0, 5 ])
-            .scale(100)
-            .rotate([-50,0]);
+           . center([1, 5])
+            .scale(12)
+            .rotate([-180,0]);
 
         worldMap
-            .width(1000)
+            .width(500)
             .height(420)
             .dimension(countryDim)
             .group(country_group)
