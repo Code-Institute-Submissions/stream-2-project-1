@@ -197,8 +197,8 @@
         var worldMap = dc.geoChoroplethChart('#world-map-chart');
         
         var projection = d3.geo.mercator()
-           . center([1, 5])
-            .scale(12)
+            .center([0, 5])
+            .scale(120)
             .rotate([-180,0]);
 
         worldMap
@@ -213,7 +213,7 @@
             })
             .projection(projection)
             .title(function(p){
-                return "Country: " + p["Key"]
+                return p["key"]
             })
         
         
