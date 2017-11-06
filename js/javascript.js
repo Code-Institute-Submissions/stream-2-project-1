@@ -1,6 +1,6 @@
  queue()
-        .defer(d3.csv, "data/gtd.csv")
-        .defer(d3.json, "data/countries.geo.json")
+        .defer(d3.csv, "../data/gtd.csv")
+        .defer(d3.json, "../data/countries.geo.json")
         .await(makeGraphs);
     function makeGraphs(error, countryData, geoData) {
 
