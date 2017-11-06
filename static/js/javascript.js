@@ -53,56 +53,56 @@
  
         //Average killed by way Killed
         
-        var weapon_dim = ndx.dimension(function (d){
-            return attackType(d['weaptype1_txt']);
-        })
+        // var weapon_dim = ndx.dimension(function (d){
+        //     return attackType(d['weaptype1_txt']);
+        // })
     
-        function attackType (d){
-            if (d == 'Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)') {
-                d = 'Vehicle'; }
-            return d;
-        }
+        // function attackType (d){
+        //     if (d == 'Vehicle (not to include vehicle-borne explosives, i.e., car or truck bombs)') {
+        //         d = 'Vehicle'; }
+        //     return d;
+        // }
         
-         var people_killed_group = weapon_dim.group().reduce(
-            function (p, v) {
-                p.count++;
-                p.total += +v.nkill;
-                p.average = p.total / p.count;
-                return p;
-            },
-            function (p, v) {
-                p.count--;
-                if(p.count == 0) {
-                    p.total = 0;
-                    p.average = 0;
-                } else {
-                    p.total -= +v.nkill;
-                    p.average = p.total / p.count;
-                };
-                return p;
-            },
-            function () {
-                return {count: 0, total: 0, average: 0};
-            }
-        );
+        //  var people_killed_group = weapon_dim.group().reduce(
+        //     function (p, v) {
+        //         p.count++;
+        //         p.total += +v.nkill;
+        //         p.average = p.total / p.count;
+        //         return p;
+        //     },
+        //     function (p, v) {
+        //         p.count--;
+        //         if(p.count == 0) {
+        //             p.total = 0;
+        //             p.average = 0;
+        //         } else {
+        //             p.total -= +v.nkill;
+        //             p.average = p.total / p.count;
+        //         };
+        //         return p;
+        //     },
+        //     function () {
+        //         return {count: 0, total: 0, average: 0};
+        //     }
+        // );
         
-        var weapon_chart = dc.barChart("#weapons-display");
+        // var weapon_chart = dc.barChart("#weapons-display");
 
-        weapon_chart
-            .width(350)
-            .height(300)
-            .margins({top: 10, right: 20, bottom: 150, left: 40})
-            .dimension(weapon_dim)
-            .group(people_killed_group)
-            .valueAccessor(function (p) {
-                return p.value.average;
-            })
-            .transitionDuration(500)
-            .x(d3.scale.ordinal())
-            .xUnits(dc.units.ordinal)
-            .elasticY(true)
-            .xAxisLabel("")
-            .yAxis().ticks(4);
+        // weapon_chart
+        //     .width(350)
+        //     .height(300)
+        //     .margins({top: 10, right: 20, bottom: 10, left: 40})
+        //     .dimension(weapon_dim)
+        //     .group(people_killed_group)
+        //     .valueAccessor(function (p) {
+        //         return p.value.average;
+        //     })
+        //     .transitionDuration(500)
+        //     .x(d3.scale.ordinal())
+        //     .xUnits(dc.units.ordinal)
+        //     .elasticY(true)
+        //     .xAxisLabel("")
+        //     .yAxis().ticks(4);
  
  
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------        
@@ -117,9 +117,9 @@
                 return 'Lethal';
         });
         var attack_type = attack_type_dim.group();
-        dc.pieChart('#second-chart')
-            .height(250)
-            .radius(500)
+        dc.pieChart('#pie-chart')
+            .height(150)
+            .radius(250)
             .transitionDuration(1500)
             .dimension(attack_type_dim)
             .group(attack_type);
@@ -131,7 +131,7 @@
 
         var group_group = group_dim.group().reduceSum(dc.pluck('nkill'));
 
-        var group_chart = dc.rowChart("#third-chart");
+        var group_chart = dc.rowChart("#group-killed-chart");
 
         group_chart
             .width(350)
@@ -198,12 +198,13 @@
         
         var projection = d3.geo.mercator()
             .center([0, 5])
-            .scale(120)
-            .rotate([-180,0]);
+            .scale(150)
+            .rotate([-38,0]);
+            
 
         worldMap
-            .width(500)
-            .height(420)
+            .width(900)
+            .height(560)
             .dimension(countryDim)
             .group(country_group)
             .colors(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#7C151D"])
