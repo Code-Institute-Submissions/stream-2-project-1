@@ -8,15 +8,15 @@ app = Flask(__name__)
 
 MONGODB_URI = os.environ.get('MONGODB_URI')
 DBS_NAME = os.environ.get('MONGO_DB_NAME','gt_data')
-COLLECTION_NAME = os.environ.get('MONGO_COLLECTION_NAME','gtdata')
+COLLECTION_NAME = os.environ.get('MONGO_COLLECTION_NAME','globalterrorism')
 
 # Modify the following for your fields
 FIELDS = {'nkill': True, 'iyear': True, 'nwound': True, 'weaptype1_txt': True,
-          'gname': True, 'targtype1_txt': True,'_id': False, 'country_txt': True}
+          'gname': True, 'targtype1_txt': True, 'country_txt': True, '_id': False}
 
 @app.route("/")
 def index():
-    return render_template("templates/index.html")
+    return render_template("index.html")
 
 
 @app.route("/data")

@@ -1,6 +1,6 @@
  queue()
-        .defer(d3.csv, "../data/gtd.csv")
-        .defer(d3.json, "../data/countries.geo.json")
+        .defer(d3.json, "/data")
+        .defer(d3.json, "static/countries.geo.json")
         .await(makeGraphs);
     function makeGraphs(error, countryData, geoData) {
 
@@ -185,6 +185,9 @@
             ])
             .brushOn(false)
             .render();
+            
+        compositeChart.xAxis().tickFormat(d3.format('d'));
+
             
 // ---------------------------------------------------------------------------------------------------------------------------        
         // World Map  
