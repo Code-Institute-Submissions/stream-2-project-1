@@ -8,7 +8,8 @@
 
 	
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/css/style.css" type="text/css" />
 	<link rel="stylesheet" href="../static/css/introjs.min.css" type="text/css" />
 
@@ -17,8 +18,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../static/js/graph.js"></script>
+	<script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../static/js/graph.js"></script>
     <script type="text/javascript" src="../static/js/topojson.min.js"></script>
     <script type="text/javascript" src="../static/js/intro.min.js"></script>
     
@@ -26,12 +27,12 @@
 </head>
 <body>
 
-
 <div class="container-fluid">
 	<!--Button for the tour-->
 	<a class="btn btn-large btn-success margin_left" href="javascript:void(0);" onclick="javascript:introJs().start();">Start Tour</a>
 		<!--Button for the tour-->
 	<div id="Test"></div>
+		<!--Number of the peoples-->
 	<div class="row">
 		<div class="col-md-12">
 			<div class="row">
@@ -39,10 +40,11 @@
 				</div>
 				<div class="col-md-4" data-step="1" data-intro="Total Number of People Killed and Wounded." data-position='right'>
 				    <div>
-                        <div id="number-display"><span>Killed: </span></div>
+                        <div id="number-display" class="numberDisplays"><span class="numberText">Killed </span></div>
                     </div>
+                    
                     <div>
-                        <div id="wounded-display"><span>Wounded: </span></div>
+                        <div id="wounded-display" class="numberDisplays"><span class="numberText">Wounded </span></div>
                     </div>
 				</div>
 				<div class="col-md-4">
@@ -50,11 +52,14 @@
 			</div>
 		</div>
 	</div>
+	<hr>		<!--End Number of the peoples-->
 	<div class="row">
+		<!--World Map-->
 		<div class="col-md-8">
-			<h3>World Map</h3>
             <div id="world-map-chart"></div>
 		</div>
+		<!--World Map-->
+		<!--Side graphs-->
 			<div class="col-md-2">
 				<div class="row">
 					<div class="col-md-12">
@@ -67,6 +72,7 @@
 			    	</div>
 				</div>
 			</div>
+		 <!--Side Graphs-->
 	</div>
 	<div class="row">
 		<div class="col-md-8">
@@ -83,3 +89,6 @@
 
 </body>
 </html>
+
+
+<!--To view website go to bash: python3 dashboard.py-->
