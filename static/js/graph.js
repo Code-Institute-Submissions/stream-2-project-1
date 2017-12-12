@@ -134,8 +134,8 @@
         var group_chart = dc.rowChart("#group-killed-chart");
 
         group_chart
-            .width(350)
-            .height(300)
+            .width(400)
+            .height(280)
             .dimension(group_dim)
             .cap(4)
             .group(group_group)
@@ -151,8 +151,8 @@
         var target_chart = dc.rowChart("#target-chart");
 
         target_chart
-            .width(350)
-            .height(300)
+            .width(400)
+            .height(280)
             .dimension(target_dim)
             .cap(4)
             .group(target_group)

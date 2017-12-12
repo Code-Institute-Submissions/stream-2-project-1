@@ -22,6 +22,22 @@ div {
   font-size: 300%;
 }
 
-.numberText{
-  color: red;
+.mid-right{
+  margin-top: 15px;
 }
+
+hr {
+  margin-top: 15px;
+}
+
+#world-map-chart{
+  border-left: 20%;
+  border-top: 20%;
+}
+
+.displaynumbers { 
+  background-color: #7a1720;
+  color: white;
+  
+}
+  

@@ -38,7 +38,7 @@
 			<div class="row">
 				<div class="col-md-4">
 				</div>
-				<div class="col-md-4" data-step="1" data-intro="Total Number of People Killed and Wounded." data-position='right'>
+				<div class="col-md-4 displaynumbers" data-step="1" data-intro="Total Number of People Killed and Wounded." data-position='right'>
 				    <div>
                         <div id="number-display" class="numberDisplays"><span class="numberText">Killed </span></div>
                     </div>
@@ -48,6 +48,7 @@
                     </div>
 				</div>
 				<div class="col-md-4">
+					<div id="pie-chart"></div>
 				</div>
 			</div>
 		</div>
@@ -61,27 +62,28 @@
 		<!--World Map-->
 		<!--Side graphs-->
 			<div class="col-md-2">
-				<div class="row">
-					<div class="col-md-12">
-			    		<div id="pie-chart"></div>
+				<div class="row mid-right">
+					<div class="col-md-12 pie">
+			    		<!--<h3>Target places</h3>-->
+           				<div id="target-chart"></div>
 			    	</div>
 				</div>
-				<div class="row">
-					<div class="col-md-12">
+				<div class="row mid-right">
+					<div class="col-md-12 pie">
 			    		<div id="group-killed-chart"></div>
 			    	</div>
 				</div>
 			</div>
 		 <!--Side Graphs-->
 	</div>
+	<hr>
 	<div class="row">
 		<div class="col-md-8">
-			<h3>Composite Linechart</h3>
+			<!--<h3>Composite Linechart</h3>-->
             <div id="composite-chart"></div>
 		</div>
 		<div class="col-md-4">
-			<h3>Target places</h3>
-            <div id="target-chart"></div>
+			
 		</div>
 	</div>
 </div>
