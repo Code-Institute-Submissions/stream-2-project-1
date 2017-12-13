@@ -36,8 +36,24 @@ hr {
 }
 
 .displaynumbers { 
-  background-color: #7a1720;
-  color: white;
+  color: #7a1720;
+  font-family: Sans-serif;
+  font-weight: bold;
   
 }
+
+.btn-success {
+  border-color: #7a1720;
+  background-color: #7a1720;
+}
+
+.btn-success:hover {
+  background-color: #3683bb;
+  border-color: #3683bb;
+}
+
+row _4 {
+  fill: #7a1720;
+}
+
   
