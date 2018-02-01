@@ -1,6 +1,6 @@
  queue()
         .defer(d3.json, "/data")
-        .defer(d3.json, "static/countries.geo.json")
+        .defer(d3.json, "/static/countries.geo.json")
         .await(makeGraphs);
     function makeGraphs(error, countryData, geoData) {
 
@@ -134,8 +134,8 @@
         var group_chart = dc.rowChart("#group-killed-chart");
 
         group_chart
-            .width(350)
-            .height(300)
+            .width(400)
+            .height(280)
             .dimension(group_dim)
             .cap(4)
             .group(group_group)
@@ -151,13 +151,13 @@
         var target_chart = dc.rowChart("#target-chart");
 
         target_chart
-            .width(350)
-            .height(300)
+            .width(400)
+            .height(280)
             .dimension(target_dim)
             .cap(4)
             .group(target_group)
             .xAxis().ticks(4);
-
+            
 
 // ---------------------------------------------------------------------------------------------------------------------------
         //Composite Line Chart
@@ -172,15 +172,16 @@
             .height(250)
             .dimension(yearDim)
             .x(d3.scale.linear().domain([1970, 1976]))
-            .yAxisLabel("The Y Axis")
+            .yAxisLabel("Amount")
+            .xAxisLabel("Year")
             .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
             .renderHorizontalGridLines(true)
             .compose([
                 dc.lineChart(compositeChart)
-                    .colors('red')
+                    .colors('#3683bb')
                     .group(ammountAttacks, 'Attacks'),
                 dc.lineChart(compositeChart)
-                    .colors('blue')
+                    .colors('#7a1720')
                     .group(ammountKilled, 'People Killed'),
             ])
             .brushOn(false)

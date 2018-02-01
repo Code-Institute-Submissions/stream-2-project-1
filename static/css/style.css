@@ -12,3 +12,48 @@ div {
   transform: rotate(-45deg);
 }
 
+.fa-bolt {
+  width: 50px;
+  height: 50px;
+  color: black;
+}
+
+.numberDisplays{
+  font-size: 300%;
+}
+
+.mid-right{
+  margin-top: 15px;
+}
+
+hr {
+  margin-top: 15px;
+}
+
+#world-map-chart{
+  border-left: 20%;
+  border-top: 20%;
+}
+
+.displaynumbers { 
+  color: #7a1720;
+  font-family: Sans-serif;
+  font-weight: bold;
+  
+}
+
+.btn-success {
+  border-color: #7a1720;
+  background-color: #7a1720;
+}
+
+.btn-success:hover {
+  background-color: #3683bb;
+  border-color: #3683bb;
+}
+
+row _4 {
+  fill: #7a1720;
+}
+
+  
