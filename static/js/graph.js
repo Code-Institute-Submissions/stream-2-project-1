@@ -172,7 +172,7 @@
             .width(800)
             .height(250)
             .dimension(yearDim)
-            .x(d3.scale.linear().domain([1970, 1976]))
+            .x(d3.scale.linear().domain([1970, 2011]))
             .yAxisLabel("Amount")
             .xAxisLabel("Year")
             .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))
