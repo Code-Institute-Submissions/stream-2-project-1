@@ -1,7 +1,8 @@
  queue()
-        .defer(d3.csv, "static/gtd.csv")
+        .defer(d3.json, "/globalterrorism/datacollection")
         .defer(d3.json, "static/countries.geo.json")
         .await(makeGraphs);
+        
     function makeGraphs(error, countryData, geoData) {
 
         var ndx = crossfilter(countryData);

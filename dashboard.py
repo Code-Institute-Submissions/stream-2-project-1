@@ -7,8 +7,8 @@ import os
 app = Flask(__name__)
 
 MONGODB_URI = os.environ.get('MONGODB_URI')
-DBS_NAME = os.environ.get('MONGO_DB_NAME','gt_data')
-COLLECTION_NAME = os.environ.get('MONGO_COLLECTION_NAME','globalterrorism')
+DBS_NAME = os.environ.get('MONGO_DB_NAME','globalterrorism')
+COLLECTION_NAME = os.environ.get('MONGO_COLLECTION_NAME','datacollection')
 
 # Modify the following for your fields
 FIELDS = {'nkill': True, 'iyear': True, 'nwound': True, 'weaptype1_txt': True,
@@ -19,7 +19,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/data")
+@app.route("/globalterrorism/datacollection")
 def get_data():
     with MongoClient(MONGODB_URI) as conn:
         # Define which collection we wish to access
