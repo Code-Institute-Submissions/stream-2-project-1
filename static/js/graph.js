@@ -113,9 +113,9 @@
         
         var attack_type_dim = ndx.dimension(function(d) {
             if(d['nkill'] == 0)
-                return 'Non-lethal';
+                return 'Wounded';
             else
-                return 'Lethal';
+                return 'Killed';
         });
         var attack_type = attack_type_dim.group();
         dc.pieChart('#pie-chart')
